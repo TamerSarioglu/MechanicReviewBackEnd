@@ -20,6 +20,7 @@ fun Application.configureRouting() {
     routing {
         route("/api") {
             get("/health") {
+
                 call.respond(mapOf("status" to "ok"))
             }
 
