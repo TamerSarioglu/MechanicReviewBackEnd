@@ -12,7 +12,6 @@ import org.example.repositories.MechanicRepository
 
 fun Route.mechanicRoutes(mechanicRepository: MechanicRepository) {
     route("/mechanics") {
-        // Create a new mechanic (protected route)
         authenticate("auth-jwt") {
             post {
                 val mechanic = call.receive<Mechanic>()
@@ -21,7 +20,6 @@ fun Route.mechanicRoutes(mechanicRepository: MechanicRepository) {
             }
         }
 
-        // Get a specific mechanic by ID
         get("/{id}") {
             val id = call.parameters["id"] ?: throw BadRequestException("Missing mechanic ID")
             val mechanic = mechanicRepository.getMechanicWithRating(id)
@@ -29,7 +27,6 @@ fun Route.mechanicRoutes(mechanicRepository: MechanicRepository) {
             call.respond(HttpStatusCode.OK, mechanic)
         }
 
-        // Search/filter mechanics
         get {
             val query = call.request.queryParameters["query"]
             val city = call.request.queryParameters["city"]

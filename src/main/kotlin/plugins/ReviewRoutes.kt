@@ -14,15 +14,11 @@ import org.example.services.JwtService
 
 fun Route.reviewRoutes(reviewRepository: ReviewRepository, jwtService: JwtService) {
     route("/reviews") {
-        // Create a new review (protected route)
         authenticate("auth-jwt") {
             post {
                 val principal = call.principal<JWTPrincipal>() ?: throw BadRequestException("Invalid token")
                 val userId = principal.payload.getClaim("userId").asString()
-
                 val review = call.receive<Review>()
-
-                // Ensure the user ID in the token matches the one in the review
                 if (review.userId != userId) {
                     throw BadRequestException("User ID in token does not match the one in the review")
                 }
@@ -32,7 +28,6 @@ fun Route.reviewRoutes(reviewRepository: ReviewRepository, jwtService: JwtServic
             }
         }
 
-        // Get a specific review by ID
         get("/{id}") {
             val id = call.parameters["id"] ?: throw BadRequestException("Missing review ID")
             val review = reviewRepository.getReviewById(id) ?: throw NotFoundException("Review not found")
@@ -46,7 +41,6 @@ fun Route.reviewRoutes(reviewRepository: ReviewRepository, jwtService: JwtServic
             call.respond(HttpStatusCode.OK, reviews)
         }
 
-        // Get all reviews by a specific user (protected route)
         authenticate("auth-jwt") {
             get("/user") {
                 val principal = call.principal<JWTPrincipal>() ?: throw BadRequestException("Invalid token")
