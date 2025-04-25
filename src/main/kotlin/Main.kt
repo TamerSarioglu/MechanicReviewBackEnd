@@ -6,9 +6,10 @@ import io.ktor.server.netty.*
 import org.example.plugins.*
 
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
-        .start(wait = true)
+fun main(args: Array<String>) {
+    // The embeddedServer will automatically use configuration from application.conf
+    // including port and host specified under ktor.deployment
+    embeddedServer(Netty, commandLineEnvironment(args)).start(wait = true)
 }
 
 fun Application.module() {
