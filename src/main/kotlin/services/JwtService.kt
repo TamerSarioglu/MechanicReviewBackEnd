@@ -8,8 +8,8 @@ import java.util.Date
 class JwtService {
     private val issuer = "mechanic-rating-app"
     private val audience = "mechanic-rating-users"
-    private val secret = "your-secret-key" // In production, this should be a secure environment variable
-    private val validity = 36_000_000 // 10 hours in milliseconds
+    private val secret = "your-secret-key"
+    private val validity = 36_000_000
 
     fun generateToken(user: UserResponse): String {
         return JWT.create()

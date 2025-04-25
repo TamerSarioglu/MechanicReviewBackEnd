@@ -13,13 +13,12 @@ class AuthService(
     private val jwtService: JwtService
 ) {
     suspend fun register(user: User): AuthResponse {
-        // Check if username already exists
         val existingUser = userRepository.getUserByUsername(user.username)
+
         if (existingUser != null) {
             throw BadRequestException("Username already exists")
         }
 
-        // Create the user
         val createdUser = userRepository.createUser(user)
         val token = jwtService.generateToken(createdUser)
 

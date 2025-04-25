@@ -91,10 +91,8 @@ class MechanicRepository {
         state: String? = null,
         specialty: String? = null
     ): List<MechanicWithRating> = dbQuery {
-        // Build the base query
         var queryBuilder = MechanicsTable.selectAll()
 
-        // Apply filters
         if (!query.isNullOrBlank()) {
             queryBuilder = queryBuilder.andWhere {
                 (MechanicsTable.name.lowerCase() like "%${query.lowercase()}%") or (MechanicsTable.address.lowerCase() like "%${query.lowercase()}%")
@@ -109,10 +107,7 @@ class MechanicRepository {
             queryBuilder = queryBuilder.andWhere { MechanicsTable.state.lowerCase() like "%${state.lowercase()}%" }
         }
 
-        // Get all mechanics that match the criteria
         val mechanics = queryBuilder.mapNotNull { toMechanic(it) }
-
-        // If specialty filter is applied, filter further in memory (since specialties is stored as JSON)
         val filteredMechanics = if (!specialty.isNullOrBlank()) {
             mechanics.filter { mechanic ->
                 mechanic.specialties.any { it.contains(specialty, ignoreCase = true) }
@@ -121,7 +116,6 @@ class MechanicRepository {
             mechanics
         }
 
-        // For each mechanic, calculate their rating
         filteredMechanics.map { mechanic ->
             val ratingStats = ReviewsTable
                 .slice(

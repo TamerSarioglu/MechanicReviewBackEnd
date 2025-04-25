@@ -10,12 +10,10 @@ import org.example.services.AuthService
 import org.example.services.JwtService
 
 fun Application.configureRouting() {
-    // Initialize repositories
     val userRepository = UserRepository()
     val mechanicRepository = MechanicRepository()
     val reviewRepository = ReviewRepository()
 
-    // Initialize services
     val jwtService = JwtService()
     val authService = AuthService(userRepository, jwtService)
 
@@ -25,7 +23,6 @@ fun Application.configureRouting() {
                 call.respond(mapOf("status" to "ok"))
             }
 
-            // Register routes
             authRoutes(authService)
             mechanicRoutes(mechanicRepository)
             reviewRoutes(reviewRepository, jwtService)
