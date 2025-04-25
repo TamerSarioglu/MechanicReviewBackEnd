@@ -16,7 +16,7 @@ fun Application.configureRouting() {
     val reviewRepository = ReviewRepository()
 
     // Initialize services
-    val jwtService = JwtService()
+    val jwtService = JwtService(environment.config)
     val authService = AuthService(userRepository, jwtService)
 
     routing {
