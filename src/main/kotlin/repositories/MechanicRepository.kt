@@ -8,7 +8,6 @@ import org.example.database.ReviewsTable
 import org.example.models.Mechanic
 import org.example.models.MechanicWithRating
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID

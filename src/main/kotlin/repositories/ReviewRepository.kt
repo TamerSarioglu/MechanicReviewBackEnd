@@ -1,6 +1,5 @@
 package org.example.repositories
 
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.example.database.DatabaseFactory.dbQuery
@@ -9,7 +8,6 @@ import org.example.database.UsersTable
 import org.example.models.Review
 import org.example.models.ReviewWithUserDetails
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
