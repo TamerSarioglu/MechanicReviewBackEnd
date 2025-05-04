@@ -17,6 +17,7 @@ fun Application.module() {
     configureSecurity()
     configureCORS()
     configureStatusPages()
+    configureValidation()
     configureDatabases()
     configureRouting()
 }

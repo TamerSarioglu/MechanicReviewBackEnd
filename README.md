@@ -118,3 +118,28 @@ Captures user feedback with ratings for different aspects of service (quality, p
 ## 📞 Contact
 
 For questions or feedback, please reach out to [tamerthedark@hotmail.com](mailto:tamerthedark@hotmail.com)
+
+### Environment Variables
+
+The application uses a `.env` file for configuration. Create this file in the project root with the following variables:
+
+```
+# JWT Configuration
+JWT_SECRET=your-secret-key-for-local-development
+JWT_ISSUER=mechanic-rating-app
+JWT_AUDIENCE=mechanic-rating-users
+JWT_VALIDITY=36000000
+
+# Database Configuration
+DB_URL=jdbc:h2:file:./data/mechanic_review_db;DB_CLOSE_DELAY=-1
+DB_DRIVER=org.h2.Driver
+DB_MAX_POOL_SIZE=3
+
+# CORS Configuration
+CORS_ALLOWED_HOSTS=localhost:3000,localhost:8080,10.0.2.2:8080,10.0.2.2:3000
+```
+
+For security, make sure to:
+- Add `.env` to your `.gitignore` file
+- Use different JWT secrets for development and production
+- Configure CORS for your specific deployment environment
